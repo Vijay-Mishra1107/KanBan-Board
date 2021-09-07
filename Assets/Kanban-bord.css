@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+    font-family: "Crimson Text", serif;
+    overflow: scroll;
+}
+.loader{
+    background-color: #1e25359d;
+    z-index: 10000 !important;
+}
+.loader>div{ 
+    height: 100px;
+    width: 100px;
+    border: 15px solid #9ba4b8;
+    border-top-color: #00aee0 ;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 50%;
+    animation: spin 1.5s infinite linear;
+}
+@keyframes spin {
+    100%{
+        transform: rotate(360deg);
+    }            
+}
+.hover:hover{
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.753)
+}
+.nav2{
+    border-radius: 50%;
+}
+.focus:focus {
+    text-decoration: none;
+	outline: none;
+}
+.min:hover{
+    color: red;
+    background-color: #b2b4b98c;
+}
+.mini:hover{
+    color: red;
+}

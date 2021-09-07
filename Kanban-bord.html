@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>KanBan Board</title>
+    <link rel="icon" href="Assets/img/logo1.png" type="image/png">
+    <link rel="stylesheet" href="/Assets/Kanban-bord.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+        integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- <div id="loader" class="loader overflow-hidden w-100 h-100 position-fixed">
+        <div class="overflow-hidden position-absolute m-auto"></div>
+    </div>
+    <div id="coten" class="coten overflow-hidden"> -->
+    <nav class="navbar shadow pt-3 pb-3 navbar-expand-lg bg-info navbar-dark">
+        <img src="/Assets/img/logo1.png" class="rounded-pill mr-1 mb-1" alt="" width="100" srcset="">
+        <a class="navbar-brand text-light fw-bold " href="">KanBan Board</a>
+        <button class="navbar-toggler text-dark" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon text-dark"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-light fw-bold" href="#">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link text-light fw-bold" onclick="showOn()"><b class="shadow p-2">New +</b></a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" id="searchTxt" type="search" placeholder="Search"
+                    aria-label="Search">
+                <button class="btn text-light shadow fw-bold my-2 my-sm-0" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <!-- Button trigger modal -->
+            <a class="nav-link text-light fw-bold" data-toggle="modal" data-target="#exampleModal">
+                <i class="fas text-light fa-trash-alt"></i> Reset
+            </a>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-warning" id="exampleModalLabel">Give your permission.</h5>
+                            <button type="button" class="close focus text-danger" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h6 class="text-info">Do you agree to reset the Kanban Board application, if so, allow us by pressing the OK button below.
+                               <br> Thank you.
+                            </h6>
+                        </div>
+                        <div class="modal-footer">
+                            <a type="button" onclick="reset()" href="" class="btn btn-info">Ok</a>
+                            <button type="button" class="btn btn-danger text-light" data-dismiss="modal" aria-label="Close">
+                               Close <!-- <span aria-hidden="true">&times;</span> -->
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    <div class="container-fluid bg-light pb-5 pt-5">
+        <div class="card bg-white p-5 mb-5 shadow">
+            <h1 class="text-center mb-4">Welcome, To KanBan Board</h1>
+            <div class="text-center">
+                <button type="button" id="Add+" onclick="showOn()" class="btn btn-info">Add new card <b>+</b></button>
+            </div>
+            <div id="show" class="d-none">
+                <div id="alert"></div>
+                <div id="alert-success"></div>
+                <div class="card shadow pl-2 pr-2 mb-2">
+                    <div class="text-center mt-3 border-bottom shadow-sm pb-2 pt-2">
+                        <span class="h4 font-weight-bolder card-title"> Add Card </span>
+                        <button type="button" onclick="hide()" class="btn min float-right shadow">
+                            <i class="fas mini fa-minus"></i>
+                        </button>
+                    </div>
+                    <div class="row">
+                        <div class="card-body col-lg-9 col-sm-10 col-md-9">
+                            <div class="form-group">
+                                <h5 class="card-title">Card Title</h5>
+                                <input type="text" class="form-control" id="addTitle" aria-describedby="title"
+                                    placeholder="Enter title">
+                                <span class="text-danger" id="t_err"></span>
+                            </div>
+                            <h5 class="card-title">Card Description</h5>
+                            <div class="form-group">
+                                <textarea class="form-control" id="addTxt" rows="4"></textarea>
+                                <span class="text-danger" id="n_err"></span>
+                            </div>
+                        </div>
+                        <div class="card-body col-lg-2 col-md-2 col-sm-2 offset-md-1 offset-lg-1 border-left">
+                            <div class="form-group">
+                                <h5 class="card-title">Font-color</h5>
+                                <input type="color" class="form-control form-control-color" id="font_color"
+                                    value="#000000" title="Choose your color">
+                                <span class="text-danger" id="fc_err"></span>
+                            </div>
+                            <div class="form-group">
+                                <h5 class="card-title">Card-color</h5>
+                                <input type="color" class="form-control form-control-color" id="bg_color"
+                                    value="#ffffff" title="Choose your color">
+                                <span class="text-danger" id="bg_err"></span>
+                            </div>
+                            <button class="btn float-right mt-3 w-100 bg-info text-light" id="addBtn">
+                                Add Card
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-3 card bg-white shadow">
+            <div class="font-weight-bolder h4 border-bottom border-secondary pb-4">
+                Your Clipboard:-
+                <form class="float-right form-inline my-lg-0">
+                    <input class="form-control shadow mr-sm-2" id="searchTxt2" type="search" placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn text-light shadow fw-bold my-2 my-sm-0" type="submit">
+                        <i class="fas text-dark fa-search"></i>
+                    </button>
+                </form>
+            </div>
+            <nav class="navbar nav2 navbar-light justify-content-center shadow mb-3 bg-light">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item border-bottom shadow border-info" id="tobor">
+                        <a class="nav-link h6 text-dark" onclick="todoshow()">
+                            <!-- <i class="fas fa-clipboard-list"></i> -->
+                            To Do
+                        </a>
+                    </li>
+                    <li class="nav-item" id="inbor">
+                        <a class="nav-link h6 text-dark" onclick="inshow()">
+                            <!-- <i class="fas fa-clipboard-list"></i> -->
+                            In Progress
+                        </a>
+                    </li>
+                    <li class="nav-item" id="dbor">
+                        <a class="nav-link h6 text-dark" onclick="doneshow()">
+                            <!-- <i class="fas fa-clipboard-check"></i> -->
+                            Done
+                        </a>
+                    </li>
+                </ul>
+                <button class="navbar-toggler focus ml-3" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    share copy content <i class="fas fa-caret-down"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="nav justify-content-center">
+                        <li class="nav-item">
+                            <a class="nav-link" target="_blank" href="https://web.whatsapp.com/">
+                                <i class="fab h2 hover text-success fa-whatsapp-square"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" target="_blank" href="https://www.facebook.com/">
+                                <i class="fab h2 hover text-primery fa-facebook-square"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" target="_blank" href="https://twitter.com/login">
+                                <i class="fab h2 hover text-info fa-twitter-square"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" target="_blank" href="https://www.linkedin.com/">
+                                <i class="fab h2 hover fa-linkedin"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div id="todo">
+                <div class="font-weight-bolder h4 border-bottom pb-3 mb-3">
+                    To Do:-
+                    <button type="button" onclick="deleteto()" class="btn btn-info float-right">
+                        <i class="fas text-light fa-trash-alt"></i> All Delete
+                    </button>
+                </div>
+                <div id="notes" ondrop="drop(event)" ondragover="allowDrop(event)" class="row container-fluid"></div>
+            </div>
+            <div id="progress" class="d-none">
+                <div class="font-weight-bolder h4 border-bottom pb-3 mb-3">
+                    In Progress:-
+                    <button type="button" onclick="deletein()" class="btn btn-info float-right">
+                        <i class="fas text-light fa-trash-alt"></i> All Delete
+                    </button>
+                </div>
+                <div id="inprogress" class="row container-fluid"></div>
+            </div>
+            <div id="done" class="d-none">
+                <div class="font-weight-bolder h4 border-bottom pb-3 mb-3">
+                    Done:-
+                    <button type="button" onclick="deleted()" class="btn btn-info float-right">
+                        <i class="fas text-light fa-trash-alt"></i> All Delete
+                    </button>
+                </div>
+                <div id="isDone" class="row container-fluid"></div>
+            </div>
+        </div>
+    </div>
+    <!-- </div> -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="/Assets/todo.js"></script>
+    <script src="/Assets/inprogress.js"></script>
+    <script src="/Assets/done.js"></script>
+    <!-- <script>
+        $(window).on('load', function () {
+            $('.loader').fadeOut(1000);
+            $('.coten').fadeIn(1000);
+        })
+    </script> -->
+</body>
+
+</html>
